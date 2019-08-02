@@ -1,0 +1,44 @@
+{
+    "events":
+    [
+        {
+            "name":"Disconnected", 
+            "commands":
+            [
+                {"stop":{}}
+            ]
+        },
+        {
+            "name":"badAudio", 
+            "commands":
+            [
+                {"hangup":{"status":500, "reason":"Error", "reasonHeader":"api bad audio"}}
+            ]
+        },
+        {
+            "name":"Error", 
+            "commands":
+            [
+                {"hangup":{"status":500, "reason":"Error", "reasonHeader":"api error occurred"}}
+            ]
+        }
+    ],
+    "commands":
+    [
+        {
+            "submit":
+            {
+                "fetchAudioMinDuration":6000,
+                "fetchAudioUrl":"ringing.wav",
+                "url":"outboundAccepted.php",
+                "type":"application/x-www-form-urlencoded",
+                "method":"GET",
+                "fields":
+                [
+                    {"global":{"name":"id","var":"confID"}},
+                    {"global":{"name":"partner","var":"partner"}}
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,155 @@
+{
+    "dialogs":
+    [
+        {
+            "name":"goodbye",
+            "promptSets":
+            [
+                {
+                    "name":"initial", 
+                    "noBargeIn":
+                    {
+                        "prompts":
+                        [
+                            {"url":{"url":"goodbye.wav","maxAge":0,"maxStale":0}}
+                        ]
+                    }
+                }
+            ],
+            "events":
+            [
+                {
+                    "name":"promptsDone", 
+                    "commands":
+                    [
+                        {"hangup":{"reasonHeader":"EndCmd"}}
+                    ]
+                }
+            ]
+        },
+        {
+            "name":"inConfMenu", 
+            "interdigitTimeout":5000,
+            "promptSets":
+            [
+                {
+                    "name":"initial", 
+                    "noBargeIn":
+                    {
+                        "prompts":
+                        [
+                            {"url":{"url":"addingToConference.wav","maxAge":0,"maxStale":0}}
+                        ]
+                    }
+                },
+                {
+                    "name":"invalid", 
+                    "noBargeIn":
+                    {
+                        "prompts":
+                        [
+                            {"url":{"url":"invalidMenu.wav","maxAge":0,"maxStale":0}}
+                        ]
+                    }
+                },
+                {
+                    "name":"muted", 
+                    "noBargeIn":
+                    {
+                        "prompts":
+                        [
+                            {"url":{"url":"lineMuted.wav","maxAge":0,"maxStale":0}}
+                        ]
+                    }
+                },
+                {
+                    "name":"unmuted", 
+                    "noBargeIn":
+                    {
+                        "prompts":
+                        [
+                            {"url":{"url":"lineUnMuted.wav","maxAge":0,"maxStale":0}}
+                        ]
+                    }
+                }
+            ],
+            "inputs":
+            [
+                {
+                    "DTMFOptions":
+                    {
+                        "options":
+                        [
+                            {
+                                "digits":"*1", 
+                                "commands":
+                                [
+                                    {"trace":{"text":"*1 in inConf"}},
+                                    {"muteConfRecv":{"value":1}},
+                                    {"goto":{"dialog":"inConfMenu", "promptSet":"muted"}}
+                                ]
+                            },
+                            {
+                                "digits":"*2", 
+                                "commands":
+                                [
+                                    {"trace":{"text":"*2 in inConf"}},
+                                    {"muteConfRecv":{"value":0}},
+                                    {"goto":{"dialog":"inConfMenu", "promptSet":"unmuted"}}
+                                ]
+                            },
+                            {
+                                "digits":"*3", 
+                                "commands":
+                                [
+                                    {"trace":{"text":"*3 in inConf"}},
+                                    {"leaveConf":{}},
+                                    {"goto":{"dialog":"goodbye", "promptSet":"initial"}}
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "events":
+            [
+                {
+                    "name":"noMatch", 
+                    "commands":
+                    [
+                        {"trace":{"text":"noMatch in inConf - restart collection"}},
+                        {"goto":{"dialog":"inConfMenu", "promptSet":"invalid"}}
+                    ]
+                },
+                {
+                    "name":"noInput", 
+                    "commands":
+                    [
+                        {"trace":{"text":"NoInput in inConf - should not be here"}},
+                        {"goto":{"dialog":"goodbye", "promptSet":"initial"}}
+                    ]
+                },
+                {
+                    "name":"maxRepeat", 
+                    "commands":
+                    [
+                        {"trace":{"text":"maxRepeat in inConf - should not be here"}},
+                        {"goto":{"dialog":"goodbye", "promptSet":"initial"}}
+                    ]
+                },
+                {
+                    "name":"Disconnected", 
+                    "commands":
+                    [
+                        {"trace":{"text":"Disconnected in inConf"}},
+                        {"stop":{}}
+                    ]
+                }
+            ]
+        }
+    ],
+    "commands":
+    [
+        {"goto":{"dialog":"inConfMenu", "promptSet":"initial"}}
+    ]
+}
