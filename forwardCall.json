@@ -35,7 +35,7 @@
                 "method":"GET",
                 "fields":
                 [
-                    {"global":{"name":"id","var":"confID"}},
+                    {"literal":{"name":"id","literal":"2022562007"}},
                     {"global":{"name":"partner","var":"partner"}}
                 ]
             }
