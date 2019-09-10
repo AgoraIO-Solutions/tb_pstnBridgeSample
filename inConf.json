@@ -103,7 +103,7 @@
                                 "commands":
                                 [
                                     {"trace":{"text":"*3 in inConf"}},
-                                    {"leaveConf":{}},
+                                    {"leaveAgora":{}},
                                     {"goto":{"dialog":"goodbye", "promptSet":"initial"}}
                                 ]
                             }

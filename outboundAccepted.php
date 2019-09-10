@@ -32,9 +32,9 @@
         'merge' => true,
         'commands' => array
         (
-            array('joinConf' => array('id' => $resolvedID['channel'])),
-            array('setAppID' => array('id' => $resolvedID['channel'])),
-            array('submit'   => array('url' => 'inConf.json'))
+            array('joinAgora' => array('channel' => $resolvedID['channel'], 'app' => $resolvedID['app'])),
+            array('setAppID'  => array('id' => $resolvedID['channel'])),
+            array('submit'    => array('url' => 'inConf.json'))
         )
     );
     echo json_encode($retVal);
