@@ -32,7 +32,9 @@ Initial Voice API settings:
 -   url (required) – initial document URL. Unless otherwise configured, the
     following fields are added to the request for initial document:
 
-    -   sessUrl – HTTP url for the call session
+    -   sessionID – session ID
+    
+    -   sessionUrl – HTTP url for the call session
 
     -   accessMethod – 0 for PSTN, 1 for SIP, 2 for WebCall
 
@@ -58,12 +60,8 @@ Initial Voice API settings:
 
 -   maxDuration – maximum duration of the call
 
--   globals – a set of global session variables. Partner and sessUrl will be
-    added to this set.
-
--   welcomeUrl – added to global variables
-
--   confID – added to global variables
+-   globals – a set of global session variables. Partner, sessionID,
+    and sessionUrl will be added to this set.
 
 Voice API Document Structure
 ----------------------------
@@ -363,6 +361,12 @@ Command elements:
 
     -   app (string, required) – Agora app name
 
+    -   uid (int, optional) – Agora app uid
+
+    -   broadcast (bool, optional) – Agora app broadcast
+
+    -   idleLimitSec (int, optional) – Agora app idle limit
+    
     -   muteRecv (int, optional) – mute receive
 
     -   muteSend (int, optional) – mute send
