@@ -23,16 +23,16 @@
     $id      = trim($_REQUEST['id']);
     $partner = trim($_REQUEST['partner']);
     
-    $resolvedID = validateID($partner, $id);
+    $resolvedID = validateID($partner, $id, $error);
     if ($resolvedID === false)
-        returnError(500, 'Invalid ID');
+        returnError(500, $error);
     
     $retVal = array
     (
         'merge' => true,
         'commands' => array
         (
-            array('joinAgora' => array('channel' => $resolvedID['channel'], 'app' => $resolvedID['app'])),
+            array('joinAgora' => $resolvedID),
             array('setAppID'  => array('id' => $resolvedID['channel'])),
             array('submit'    => array('url' => 'inConf.json'))
         )

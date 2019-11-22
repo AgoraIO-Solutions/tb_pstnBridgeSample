@@ -31,7 +31,7 @@
             'merge' => true,
             'commands' => array
             (
-                array('trace'  => array('text' => 'ValidateID failed: ' . $error . ', ' . $error)),
+                array('trace'  => array('text' => 'ValidateID failed: ' . $error)),
                 array('throw' => array('name' => 'validateIDFailed'))
             )
         );
