@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>VoiceAPI Sample</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+     html {
+         width: 100%;
+         overflow-wrap: break-word;
+         font-size: 12px;
+     }
+
+     table {
+         width: 100%;
+         border-collapse: collapse;
+     }
+
+     table td, table th {
+         padding: 0.5rem;
+         border: 1px solid #000;
+     }
+
+     table td:nth-child(4) {
+         max-width: 100px;
+     }
+
+     #logged-in {
+         display: none;
+     }
+    </style>
+    <script src="sessions.js"></script>
+  </head>
+  <body>
+    <div>
+      <form name="loginForm">
+        <h3>Login</h3>
+        Username: <input type="text" name="username" />
+        Password: <input type="password" name="password" />
+        <button type="submit">Authenticate</button>
+      </form>
+    </div>
+    <div id="logged-in">
+      <h3>Sessions</h3>
+      AppID: <input type="text" id="appID" /> <button type="button" id="getSessions">Get Sessions</button>
+      <br/><br/>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Stop</th>
+            <th>Mute</th>
+            <th>appID</th>
+            <th>sessionID</th>
+
+            <th>state</th>
+            <th>status</th>
+            <th>call</th>
+
+            <th>startTS</th>
+            <th>endTS</th>
+            <th>connectTS</th>
+            <th>direction</th>
+            <th>accessMethod</th>
+            <th>requestUri</th>
+
+            <th>fromNumber</th>
+            <th>fromName</th>
+            <th>fromUri</th>
+            <th>toNumber</th>
+            <th>toUri</th>
+            <th>pstnProvider</th>
+            <th>tollFree</th>
+            <th>callID</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>
