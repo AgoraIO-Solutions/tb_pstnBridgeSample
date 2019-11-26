@@ -8,7 +8,7 @@
     'state', 'status', 'call', 'startTS', 'endTS', 'connectTS',
     'direction', 'accessMethod', 'requestUri', 'fromNumber',
     'fromName', 'fromUri', 'toNumber', 'toUri', 'pstnProvider',
-    'tollFree', 'callID',
+    'tollFree', 'callID', 'url'
   ];
 
   function requestError(msg) {
@@ -209,7 +209,7 @@
     tr.insertCell().appendChild(document.createTextNode(session.appID));
     tr.insertCell().appendChild(document.createTextNode(sessionID));
     SESSION_FIELDS.forEach(function(field) {
-      tr.insertCell().appendChild(document.createTextNode(session.data[field]));
+      tr.insertCell().appendChild(document.createTextNode(session[field]));
     });
   }
 
