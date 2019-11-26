@@ -211,6 +211,7 @@
     SESSION_FIELDS.forEach(function(field) {
       tr.insertCell().appendChild(document.createTextNode(session[field]));
     });
+    tr.insertCell().appendChild(document.createTextNode(JSON.stringify(session['globals']), null, 2));
   }
 
   function initSessions() {
