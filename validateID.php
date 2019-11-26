@@ -41,6 +41,7 @@
         $retVal = array
         (
             'merge' => true,
+            'globals' => $resolvedID,
             'commands' => array
             (
                 array('joinAgora' => $resolvedID),
