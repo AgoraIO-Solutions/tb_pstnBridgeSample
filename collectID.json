@@ -121,6 +121,9 @@
                                 }
                             },
                             {
+                                "updateRegistry":{}
+                            },
+                            {
                                 "submit":
                                 {
                                     "url":"validateID.php",
