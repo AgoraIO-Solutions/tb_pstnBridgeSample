@@ -85,7 +85,7 @@
                                 "commands":
                                 [
                                     {"trace":{"text":"*1 in inConf"}},
-                                    {"muteConfRecv":{"value":1}},
+                                    {"playToConf":{"value":0}},
                                     {"goto":{"dialog":"inConfMenu", "promptSet":"muted"}}
                                 ]
                             },
@@ -94,7 +94,7 @@
                                 "commands":
                                 [
                                     {"trace":{"text":"*2 in inConf"}},
-                                    {"muteConfRecv":{"value":0}},
+                                    {"playToConf":{"value":1}},
                                     {"goto":{"dialog":"inConfMenu", "promptSet":"unmuted"}}
                                 ]
                             },
@@ -113,6 +113,53 @@
             ],
             "events":
             [
+                {
+                    "name":"onLoad", 
+                    "commands":
+                    [
+                        {"trace":{"text":"inConf onLoad"}}
+                    ]
+                },
+                {
+                    "name":"playToConf", 
+                    "commands":
+                    [
+                        {"trace":{"text":"inConf playToConf"}},
+                        {"playToConf":{"value":1}},
+                        {
+                            "storeVar":
+                            {
+                                "fields":
+                                [
+                                    {"literal":{"name":"playToConf","literal":1}}
+                                ]
+                            }
+                        },
+                        {
+                            "updateRegistry":{}
+                        }
+                    ]
+                },
+                {
+                    "name":"muteToConf", 
+                    "commands":
+                    [
+                        {"trace":{"text":"inConf muteToConf"}},
+                        {"playToConf":{"value":0}},
+                        {
+                            "storeVar":
+                            {
+                                "fields":
+                                [
+                                    {"literal":{"name":"playToConf","literal":0}}
+                                ]
+                            }
+                        },
+                        {
+                            "updateRegistry":{}
+                        }
+                    ]
+                },
                 {
                     "name":"noMatch", 
                     "commands":

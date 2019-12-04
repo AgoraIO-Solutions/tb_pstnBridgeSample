@@ -160,7 +160,35 @@
 
     var params = {
       sessionID: sessionID,
-      eventName: 'setMute',
+      eventName: 'muteToConf',
+      eventData: {},
+    };
+
+    sendRequest(auth, 'VoiceAPI', 'sendEvent', params, function(response) {
+      var result = extractResult(response);
+      if (!result) {
+        requestError('missing result');
+        return;
+      }
+      if (result.error) {
+        requestError(result.error.code + ' ' + result.error.message);
+        return;
+      }
+
+      alert('sendEvent success');
+    });
+  }
+
+  function unmute(sessionID) {
+    var auth = {
+      authToken: {
+        token: authToken,
+      },
+    };
+
+    var params = {
+      sessionID: sessionID,
+      eventName: 'playToConf',
       eventData: {},
     };
 
@@ -205,6 +233,7 @@
 
     tr.insertCell().appendChild(createButton('stop'));
     tr.insertCell().appendChild(createButton('mute'));
+    tr.insertCell().appendChild(createButton('unmute'));
 
     tr.insertCell().appendChild(document.createTextNode(session.appID));
     tr.insertCell().appendChild(document.createTextNode(sessionID));
@@ -235,6 +264,10 @@
 
       case 'mute':
         mute(sessionID);
+        break;
+
+      case 'unmute':
+        unmute(sessionID);
         break;
       }
     });
