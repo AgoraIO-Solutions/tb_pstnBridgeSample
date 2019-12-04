@@ -215,6 +215,15 @@
     return el;
   }
 
+  function createTd(tr, className) {
+    var td = tr.insertCell();
+    if (className) {
+      td.setAttribute('class', className);
+    }
+
+    return td;
+  }
+
   function updateSessions(sessions) {
     tbody.innerHTML = '';
 
@@ -231,16 +240,16 @@
 
     tr.dataset.sessionID = sessionID;
 
-    tr.insertCell().appendChild(createButton('stop'));
-    tr.insertCell().appendChild(createButton('mute'));
-    tr.insertCell().appendChild(createButton('unmute'));
+    createTd(tr).appendChild(createButton('stop'));
+    createTd(tr).appendChild(createButton('mute'));
+    createTd(tr).appendChild(createButton('unmute'));
 
-    tr.insertCell().appendChild(document.createTextNode(session.appID));
-    tr.insertCell().appendChild(document.createTextNode(sessionID));
+    createTd(tr).appendChild(document.createTextNode(session.appID));
+    createTd(tr, 'sessionID').appendChild(document.createTextNode(sessionID));
     SESSION_FIELDS.forEach(function(field) {
-      tr.insertCell().appendChild(document.createTextNode(session[field]));
+      createTd(tr).appendChild(document.createTextNode(session[field]));
     });
-    tr.insertCell().appendChild(document.createTextNode(JSON.stringify(session['vars']), null, 2));
+    createTd(tr).appendChild(document.createTextNode(JSON.stringify(session['vars']), null, 2));
   }
 
   function initSessions() {
