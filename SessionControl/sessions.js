@@ -1,4 +1,6 @@
 (function() {
+  'use strict';
+
   var API_URL = 'https://dids.turbobridge.com/api/1.0/';
 
   var authToken;
