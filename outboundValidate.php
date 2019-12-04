@@ -15,40 +15,39 @@
         exit();
     }
 
-    if (!isset($_REQUEST['id']) || !isset($_REQUEST['partner']) || !isset($_REQUEST['toNumber']))
+    if (!isset($_REQUEST['id']) || !isset($_REQUEST['partner']) || !isset($_REQUEST['accessMethod']))
         returnError(500, 'Invalid params');
     
-    $id         = trim($_REQUEST['id']);
-    $partner    = trim($_REQUEST['partner']);
-    $toNumber   = trim($_REQUEST['toNumber']);
+    $id             = trim($_REQUEST['id']);
+    $partner        = trim($_REQUEST['partner']);
+    $accessMethod   = $_REQUEST['accessMethod'];
     
-    $allowedIDs = array('2022562007' => 1, '2022562008' => 1, '2022562009' => 1);
-
-    if (!array_key_exists($id, $allowedIDs) or $partner != 'agora')
-        returnError(500, 'Invalid ID');
-
-    if ($toNumber[0] != '+')
-        returnError(500, 'Invalid Number');
-
-    $phoneNumberInputRules = array(
-        '/^\+1202(\d{5,})$/' => '+1202$1',
-        '/^\+1240(\d{5,})$/' => '+1240$1',
-        '/^\+1301(\d{5,})$/' => '+1301$1',
-        '/^\+1951(\d{5,})$/' => '+1951$1'
-    ); 
-    
-    $matched = false;
-    foreach ($phoneNumberInputRules as $pattern => $replacement) 
+    if ($accessMethod == 0)
     {
-        $toNumber = preg_replace($pattern, $replacement, $toNumber, -1, $count);
-        if ($count) 
-        {
-            $matched = true;
-            break;
-        }
-    }
-    if (!$matched)
-        returnError(500, 'Number not allowed');
+        if (!isset($_REQUEST['toNumber']))
+            returnError(500, 'Invalid params');
+        $toNumber = trim($_REQUEST['toNumber']);
+        
+        if ($toNumber[0] != '+')
+            returnError(500, 'Invalid Number');
 
-    echo json_encode(array('validated' => true));
+        $phoneNumberInputRules = array(
+            '/^\+1(\d{8,})$/' => '+1$1'
+        ); 
+        
+        $matched = false;
+        foreach ($phoneNumberInputRules as $pattern => $replacement) 
+        {
+            $toNumber = preg_replace($pattern, $replacement, $toNumber, -1, $count);
+            if ($count) 
+            {
+                $matched = true;
+                break;
+            }
+        }
+        if (!$matched)
+            returnError(500, 'Number not allowed');
+    }
+
+    echo json_encode(array('validated' => true, 'maxDuration' => 180000));
 ?>
