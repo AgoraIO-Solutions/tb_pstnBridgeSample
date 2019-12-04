@@ -249,7 +249,7 @@
     SESSION_FIELDS.forEach(function(field) {
       createTd(tr).appendChild(document.createTextNode(session[field]));
     });
-    createTd(tr).appendChild(document.createTextNode(JSON.stringify(session['vars']), null, 2));
+    createTd(tr, 'vars').appendChild(document.createTextNode(JSON.stringify(session.vars, null, 2)));
   }
 
   function initSessions() {
