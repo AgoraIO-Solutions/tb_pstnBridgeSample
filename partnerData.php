@@ -5,7 +5,7 @@
         (
             'ids' => array
             (
-                '2022562007' => array('channel' => '2022562007', 'app' => '99d971190d3a40408675446ac61548c3'),
+                '2022562007' => array('channel' => '2022562007', 'app' => '99d971190d3a40408675446ac61548c3', 'broadcast' => 1, 'idleLimitSec' => 100), //'uid' => '123456', 
                 '2022562008' => array('channel' => '2022562008', 'app' => '99d971190d3a40408675446ac61548c3'), 
                 '2022562009' => array('channel' => '2022562009', 'app' => '99d971190d3a40408675446ac61548c3'),
                 '2022562010' => array('channel' => '2022562010', 'app' => '4c457b9120454344a25d355703f3d57f', 'keyURL' => 'https://sa-demo.agora.io:8036/token/rtc?uid=0&channel=$$CHANNEL$$&token_expire_ts=0&priviledge_expire_ts=0&salt=1')
@@ -15,7 +15,7 @@
         (
             'ids' => array
             (
-                '2022562007' => array('channel' => '2022562007', 'app' => '99d971190d3a40408675446ac61548c3'),
+                '2022562007' => array('channel' => '2022562007', 'app' => '99d971190d3a40408675446ac61548c3', 'broadcast' => 1, 'idleLimitSec' => 100), // 'uid' => '123456', 
                 '2022562008' => array('channel' => '2022562008', 'app' => '99d971190d3a40408675446ac61548c3'), 
                 '2022562009' => array('channel' => '2022562009', 'app' => '99d971190d3a40408675446ac61548c3'),
                 '2022562010' => array('channel' => '2022562010', 'app' => '4c457b9120454344a25d355703f3d57f', 'keyURL' => 'https://sa-demo.agora.io:8036/token/rtc?uid=0&channel=$$CHANNEL$$&token_expire_ts=0&priviledge_expire_ts=0&salt=1')
