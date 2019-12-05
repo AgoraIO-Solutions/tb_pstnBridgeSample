@@ -135,9 +135,8 @@
                                 ]
                             }
                         },
-                        {
-                            "updateRegistry":{}
-                        }
+                        {"updateRegistry":{}},
+                        {"goto":{"dialog":"inConfMenu", "promptSet":"unmuted"}}
                     ]
                 },
                 {
@@ -155,9 +154,8 @@
                                 ]
                             }
                         },
-                        {
-                            "updateRegistry":{}
-                        }
+                        {"updateRegistry":{}},
+                        {"goto":{"dialog":"inConfMenu", "promptSet":"muted"}}
                     ]
                 },
                 {
