@@ -65,7 +65,7 @@
                         "prompts":
                         [
                             {"silence":200},
-                            {"global":{"playAs":"url","var":"welcomeUrl"}},
+                            {"var":{"playAs":"url","var":"welcomeUrl"}},
                             {"silence":200},
                             {"url":{"url":"enterID.wav","maxAge":0,"maxStale":0}},
                             {"url":{"url":"presspound.wav","maxAge":0,"maxStale":0}}
@@ -132,8 +132,9 @@
                                     "fields":
                                     [
                                         {"event":{"name":"id","field":"digits"}},
-                                        {"global":{"name":"partner","var":"partner"}},
-                                        {"global":{"name":"uid","var":"uid"}},
+                                        {"var":{"name":"partner","var":"partner"}},
+                                        {"var":{"name":"sessionID","var":"sessionID"}},
+                                        {"var":{"name":"uid","var":"uid"}},
                                         {"callInfo":{"name":"accessMethod","field":"accessMethod"}},
                                         {"literal":{"name":"smthElse","literal":"something"}}
                                     ]
