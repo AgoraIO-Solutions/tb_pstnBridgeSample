@@ -28,14 +28,15 @@
         returnError(500, $error);
     
     $retVal = array
-    (
-        'merge' => true,
-        'commands' => array
-        (
-            array('joinAgora' => $resolvedID),
-            array('setAppID'  => array('id' => $resolvedID['channel'])),
-            array('submit'    => array('url' => 'inConf.json'))
-        )
-    );
-    echo json_encode($retVal);
+     (
+         'merge' => true,
+         'vars' => $resolvedID,
+         'commands' => array
+         (
+             array('joinAgora' => $resolvedID),
+             array('setAppID'  => array('id' => $resolvedID['channel'])),
+             array('submit'    => array('url' => 'inConf.json'))
+         )
+     );
+     echo json_encode($retVal);
 ?>
