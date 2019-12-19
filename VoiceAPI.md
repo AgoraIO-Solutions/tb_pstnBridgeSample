@@ -33,7 +33,7 @@ Initial Voice API settings:
     following fields are added to the request for initial document:
 
     -   sessionID – session ID
-    
+
     -   sessionUrl – HTTP url for the call session
 
     -   accessMethod – 0 for PSTN, 1 for SIP, 2 for WebCall
@@ -60,13 +60,13 @@ Initial Voice API settings:
 
 -   maxDuration – maximum duration of the call
 
--   globals – a set of global session variables. Partner, sessionID,
-    and sessionUrl will be added to this set.
+-   vars – a set of session variables. Partner, sessionID, and sessionUrl will
+    be added to this set.
 
 Voice API Document Structure
 ----------------------------
 
-Voice API Document contans the following elements:
+Voice API Document contains the following elements:
 
 -   interdigitTimeout (int, optional) – sets default interdigit timeout for all
     dialogs
@@ -77,9 +77,6 @@ Voice API Document contans the following elements:
     same dialog or event exists in new document, it will overwrite existing).
     When overwriting, all dialogs and event handlers from previous document are
     removed and new ones added.
-
--   globals (array of *variable*, optional) – global variables (can only be set
-    in documents). Always merged.
 
 -   vars (array of *variable*, optional) – variables (can be set in documents
     and with commands). Always merged.
@@ -97,10 +94,10 @@ Dialog elements:
 -   name (string, required) – name of the dialog
 
 -   repeatCount (int, optional, default 0) – number of times to the dialog can
-    be repeated before generating “maxRepeat” event
+    be repeated before generating "maxRepeat" event
 
 -   timeout (int, optional) – time to wait for user input after prompts have
-    completed. When expires a “noInput” event is generated.
+    completed. When expires a "noInput" event is generated.
 
 -   interdigitTimeout (int, optional) – timeout between DTMF digits that
     completes input
@@ -142,8 +139,8 @@ Prompt elements:
 
 -   input – describes prompt constructed from the collected input. Elements:
 
-    -   playAs (enum: digits, content; required) – describes how to interpret
-        input value
+    -   playAs (enum: digits, content, silence, dtmf; required) – describes how
+        to interpret input value
 
     -   dialog (string, required) – name of dialog
 
@@ -151,20 +148,14 @@ Prompt elements:
 
 -   silence (int) – silence duration
 
+-   dtmf (string) – plays DTMF tones
+
 -   var – describes prompt constructed from the stored variable. Elements:
 
-    -   playAs (enum: digits, content, url; required) – describes how to
-        interpret variable value
+    -   playAs (enum: digits, content, url, silence, dtmf; required) – describes
+        how to interpret variable value
 
     -   var (string, required) – name of variable
-
--   global – describes prompt that is constructed from the stored global
-    variable. Elements:
-
-    -   playAs (enum: digits, content, url; required) – describes how to
-        interpret global value
-
--   var (string, required) – name of global variable
 
 Input elements:
 
@@ -229,13 +220,15 @@ Command elements:
 
     -   level (int, optional) – trace level
 
-    -   fields (array of *field*, optional) – fields to include in the trace
+    -   data (array of *dataField*, optional) – data fields to include in the
+        trace
 
 -   alarm – write an alarm to log. Elements:
 
     -   text (string, required) – alarm text
 
-    -   fields (array of *field*, optional) – fields to include in the alarm
+    -   data (array of *dataField*, optional) – data fields to include in the
+        alarm
 
 -   setAppID – set CDR appRefID to the specified value. Elements:
 
@@ -275,8 +268,8 @@ Command elements:
 
     -   body (string, optional) – literal body
 
-    -   fields (array of *field*, optional) – fields to include in request
-        (encoded according to type)
+    -   data (array of *dataField*, optional) – data fields to include in
+        request (encoded according to type)
 
     -   fetchTimeout (int, optional) – request timeout
 
@@ -290,8 +283,8 @@ Command elements:
 
     -   body (string, optional) – literal body
 
-    -   fields (array of *field*, optional) – fields to include in request
-        (encoded according to type)
+    -   data (array of *dataField*, optional) – data fields to include in
+        request (encoded according to type)
 
     -   fetchTimeout (int, optional) – request timeout
 
@@ -351,7 +344,7 @@ Command elements:
 
     -   name (string, required) – event name
 
-    -   fields (array of *field*, optional) – fields to include in event
+    -   data (array of *dataField*, optional) – data fields to include in event
 
 -   joinAgora – join Agora channel. Elements:
 
@@ -366,10 +359,12 @@ Command elements:
     -   broadcast (bool, optional) – Agora app broadcast
 
     -   idleLimitSec (int, optional) – Agora app idle limit
-    
-    -   muteRecv (int, optional) – mute receive
 
-    -   muteSend (int, optional) – mute send
+    -   playFromConf (int, optional, default 1) – play audio from the conference
+        to the call
+
+    -   playToConf (int, optional, default 1) – play audio from the call into
+        the conference
 
     -   inGain (int, optional) – incoming audio gain
 
@@ -377,13 +372,13 @@ Command elements:
 
 -   leaveAgora – leave Agora channel.
 
--   muteConfRecv – mute receive. Elements:
+-   playFromConf – play audio from the conference to the call. Elements:
 
-    -   value (int, optional) – mute value
+    -   value (int, optional) – value to set
 
--   muteConfSend – mute send. Elements:
+-   playToConf – play audio from the call into the conference. Elements:
 
-    -   value (int, optional) – mute value
+    -   value (int, optional) – value to set
 
 -   startTimer – start timer. Elements:
 
@@ -406,7 +401,7 @@ Command elements:
 
 -   storeVar – store variables
 
-    -   fields (array of *field*, optional) – fields to store
+    -   data (array of *dataField*, optional) – data fields to store
 
 -   authorize – authorize incoming call. Elements:
 
@@ -421,71 +416,69 @@ Command elements:
 
 -   stopPrompts – stop current prompts
 
-Field elements:
+-   respond – sends a response. Only available in commands executed from the
+    event injected by an API request. Elements:
 
--   input – value constructed from collected input. Elements:
+    -   status (int, optional) – response status
 
-    -   name (string, required) – name
+    -   type (string, optional) – response content type
 
-    -   dialog (string, required) – name of dialog
+    -   body (string, optional) – literal response body
 
-    -   input (string, required) – name of input. The following input names are
-        available:
+    -   data (array of *dataField*, optional) – data fields to include in
+        response (encoded according to type)
 
-        -   lastVoiceRecordData – audio recording produced by last voiceRecord
-            input
+DataField elements:
 
-        -   lastVoiceRecordDuration – duration of audio recording produced by
-            last voiceRecord input
+-   name (string, required) – defines field name
 
-        -   lastVoiceRecordFormat – format of audio recording produced by last
-            voiceRecord input
+-   value (required) – source of the field value. Value can be:
 
-        -   lastDtmfDigits – digits detected by last dtmfOptions or dtmfCollect
-            input
+    -   Input collected in a dialog. Elements:
 
-        -   lastDtmfTermDigit– termination digit detected by last dtmfOptions or
-            dtmfCollect input
+        -   dialog (string, optional) – dialog name
 
-        -   lastMatchReason– match reason produced by last matched input
+        -   input (string, required) – name of input. The following input names
+            are available:
 
-        -   repeatCount – repeat counter of the dialog
+            -   lastVoiceRecordData – audio recording produced by last
+                voiceRecord input
 
--   event – value constructed from the event field. Elements:
+            -   lastVoiceRecordDuration – duration of audio recording produced
+                by last voiceRecord input
 
-    -   name (string, required) – name
+            -   lastVoiceRecordFormat – format of audio recording produced by
+                last voiceRecord input
 
-    -   field (string, required) – name of the event field
+            -   lastDtmfDigits – digits detected by last dtmfOptions or
+                dtmfCollect input
 
--   var – value constructed from the stored variable. Elements:
+            -   lastDtmfTermDigit– termination digit detected by last
+                dtmfOptions or dtmfCollect input
 
-    -   name (string, required) – name
+            -   lastMatchReason– match reason produced by last matched input
 
-    -   var (string, required) – variable name
+            -   repeatCount – repeat counter of the dialog
 
--   global – value constructed from the stored global variable. Elements:
+    -   Field from the event. Elements:
 
-    -   name (string, required) – name
+        -   event (string, required) – name of the event field
 
-    -   var (string, required) – global variable name
+    -   Stored variable. Elements:
 
--   callInfo – value constructed from the call info field. Elements:
+        -   var (string, required) – variable name
 
-    -   name (string, required) – name
+    -   Call information field. Elements:
 
-    -   field (string, required) – name of the call info field
+        -   callInfo (string, required) – name of the call info field
 
--   callHeader – value constructed from the call header field. Elements:
+    -   Call header field. Elements:
 
-    -   name (string, required) – name
+        -   callHeader (string, required) – name of the call header
 
-    -   header (string, required) – name of the call header
+    -   Literal value. Elements:
 
--   literal – value constructed from the literal value. Elements:
-
-    -   name (string, required) – name
-
-    -   literal (string, required) – literal value
+        -   literal (string, required) – literal value
 
 Fixed Events – events with predefined names generated in Voice API documents:
 
@@ -609,8 +602,7 @@ be either merged with current document or will overwrite it. When merging,
 dialogs and event handlers from current document are preserved and new ones are
 merged into them (if the same dialog or event exists in new document, it will
 overwrite current). When overwriting, all dialogs and event handlers from
-current document are removed and new ones added. Variables (both global and var)
-are always merged.
+current document are removed and new ones added. Variables are always merged.
 
 Event handlers specified in the root of the document (global) are activated when
 document is loaded.
@@ -713,12 +705,12 @@ The following event fields are available when voiceRecord input matched:
 If timeout was specified on the dialog then noInput timer will be started when
 all prompts complete (or there were no prompts). If user input is detected,
 noInput timer is stopped. If noInput timer fires before any input is detected, a
-"noInput" event is genetated.
+"noInput" event is generated.
 
 ### Interdigit timer
 
 If interdigitTimeout was specified on the document or dialog, then a interdigit
-timer will be restarted after every digit is detected. If interdigit timout
+timer will be restarted after every digit is detected. If interdigit timeout
 occurs, then running dtmfCollect inputs are evaluated for potential match – if
 match occurred then input's commands are executed, otherwise if there are no
 more running inputs a noMatch event is generated.
@@ -732,11 +724,11 @@ activation. This allows to finish sending data from the session.
 There is a system limit of 20 dialog activations that may occur after call is
 disconnected. After that no more dialogs will be activated.
 
-Fields
-------
+Data Fields
+-----------
 
-Fields mechanism provides a way of storing data in session variables or sending
-any collected or stored data to a URL.
+Data Fields mechanism provides a way of storing data in session variables or
+sending any collected or stored data to a URL.
 
-If a field referenced in a fields array does not exist an empty value is
+If a field referenced in a data fields array does not exist an empty value is
 substituted.
