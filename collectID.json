@@ -65,7 +65,7 @@
                         "prompts":
                         [
                             {"silence":200},
-                            {"var":{"playAs":"url","var":"welcomeUrl"}},
+                            {"global":{"playAs":"url","var":"welcomeUrl"}},
                             {"silence":200},
                             {"url":{"url":"enterID.wav","maxAge":0,"maxStale":0}},
                             {"url":{"url":"presspound.wav","maxAge":0,"maxStale":0}}
@@ -114,9 +114,9 @@
                             {
                                 "storeVar":
                                 {
-                                    "fields":
+                                    "data":
                                     [
-                                        {"event":{"name":"currentDigits","field":"digits"}}
+                                        {"name":"currentDigits","value":{"event":"digits"}}
                                     ]
                                 }
                             },
@@ -129,14 +129,13 @@
                                     "url":"validateID.php",
                                     "type":"application/x-www-form-urlencoded",
                                     "method":"GET",
-                                    "fields":
+                                    "data":
                                     [
-                                        {"event":{"name":"id","field":"digits"}},
-                                        {"var":{"name":"partner","var":"partner"}},
-                                        {"var":{"name":"sessionID","var":"sessionID"}},
-                                        {"var":{"name":"uid","var":"uid"}},
-                                        {"callInfo":{"name":"accessMethod","field":"accessMethod"}},
-                                        {"literal":{"name":"smthElse","literal":"something"}}
+                                        {"name":"id","value":{"event":"digits"}},
+                                        {"name":"partner","value":{"var":"partner"}},
+                                        {"name":"uid","value":{"var":"uid"}},
+                                        {"name":"accessMethod","value":{"callInfo":"accessMethod"}},
+                                        {"name":"smthElse","value":{"literal":"something"}}
                                     ]
                                 }
                             }
@@ -174,9 +173,9 @@
                         {
                             "storeVar":
                             {
-                                "fields":
+                                "data":
                                 [
-                                    {"event":{"name":"currentDigits","field":"digits"}}
+                                    {"name":"currentDigits","value":{"event":"digits"}}
                                 ]
                             }
                         },

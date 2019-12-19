@@ -85,8 +85,7 @@
                                 "commands":
                                 [
                                     {"trace":{"text":"*1 in inConf"}},
-                                    {"playToConf":{"value":0}},
-                                    {"goto":{"dialog":"inConfMenu", "promptSet":"muted"}}
+                                    {"throw":{"name":"muteToConf"}}
                                 ]
                             },
                             {
@@ -94,8 +93,7 @@
                                 "commands":
                                 [
                                     {"trace":{"text":"*2 in inConf"}},
-                                    {"playToConf":{"value":1}},
-                                    {"goto":{"dialog":"inConfMenu", "promptSet":"unmuted"}}
+                                    {"throw":{"name":"playToConf"}}
                                 ]
                             },
                             {
@@ -129,9 +127,20 @@
                         {
                             "storeVar":
                             {
-                                "fields":
+                                "data":
                                 [
-                                    {"literal":{"name":"playToConf","literal":1}}
+                                    {"name":"playToConf","value":{"literal":1}}
+                                ]
+                            }
+                        },
+                        {
+                            "respond":
+                            {
+                                "status":400,
+                                "type":"application/json",
+                                "data":
+                                [
+                                    {"name":"playToConf","value":{"var":"playToConf"}}
                                 ]
                             }
                         },
@@ -148,13 +157,24 @@
                         {
                             "storeVar":
                             {
-                                "fields":
+                                "data":
                                 [
-                                    {"literal":{"name":"playToConf","literal":0}}
+                                    {"name":"playToConf","value":{"literal":0}}
                                 ]
                             }
                         },
                         {"updateRegistry":{}},
+                        {
+                            "respond":
+                            {
+                                "status":500,
+                                "type":"application/json",
+                                "data":
+                                [
+                                    {"name":"playToConf","value":{"var":"playToConf"}}
+                                ]
+                            }
+                        },
                         {"goto":{"dialog":"inConfMenu", "promptSet":"muted"}}
                     ]
                 },

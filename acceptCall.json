@@ -99,10 +99,10 @@
                                             "url":"outboundAccepted.php  ",
                                             "type":"application/x-www-form-urlencoded",
                                             "method":"GET",
-                                            "fields":
+                                            "data":
                                             [
-                                                {"global":{"name":"id","var":"confID"}},
-                                                {"global":{"name":"partner","var":"partner"}}
+                                                {"name":"id","value":{"var":"confID"}},
+                                                {"name":"partner","value":{"var":"partner"}}
                                             ]
                                         }
                                     }

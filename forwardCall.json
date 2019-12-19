@@ -33,10 +33,10 @@
                 "url":"outboundAccepted.php",
                 "type":"application/x-www-form-urlencoded",
                 "method":"GET",
-                "fields":
+                "data":
                 [
-                    {"literal":{"name":"id","literal":"2022562007"}},
-                    {"global":{"name":"partner","var":"partner"}}
+                    {"name":"id","value":{"var":"confID"}},
+                    {"name":"partner","value":{"var":"partner"}}
                 ]
             }
         }
