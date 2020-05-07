@@ -29,38 +29,38 @@ the document.
 
 Initial Voice API settings:
 
--   url (required) – initial document URL. Unless otherwise configured, the
+-   url (required) -- initial document URL. Unless otherwise configured, the
     following fields are added to the request for initial document:
 
-    -   sessionID – session ID
+    -   sessionID -- session ID
 
-    -   sessionUrl – HTTP url for the call session
+    -   sessionUrl -- HTTP url for the call session
 
-    -   accessMethod – 0 for PSTN, 1 for SIP, 2 for WebCall
+    -   accessMethod -- 0 for PSTN, 1 for SIP, 2 for WebCall
 
-    -   toNumber – number dialed
+    -   toNumber -- number dialed
 
-    -   fromNumber – originating number
+    -   fromNumber -- originating number
 
-    -   callID – SIP Call-ID
+    -   callID -- SIP Call-ID
 
--   fetchAudioUrl – audio to play while fetching initial document
+-   fetchAudioUrl -- audio to play while fetching initial document
 
--   fetchAudioDelay – delay before starting fetch audio
+-   fetchAudioDelay -- delay before starting fetch audio
 
--   fetchAudioMinDuration – minimum duration of fetch audio to play
+-   fetchAudioMinDuration -- minimum duration of fetch audio to play
 
--   baseUrl – base URL for HTTP URLs
+-   baseUrl -- base URL for HTTP URLs
 
--   audioBaseUrl – base URL for Audio URLs
+-   audioBaseUrl -- base URL for Audio URLs
 
--   errorUrl – url to submit errors to
+-   errorUrl -- url to submit errors to
 
--   callEventUrl – url to submit call events to
+-   callEventUrl -- url to submit call events to
 
--   maxDuration – maximum duration of the call
+-   maxDuration -- maximum duration of the call
 
--   vars – a set of session variables. Partner, sessionID, and sessionUrl will
+-   vars -- a set of session variables. Partner, sessionID, and sessionUrl will
     be added to this set.
 
 Voice API Document Structure
@@ -68,521 +68,521 @@ Voice API Document Structure
 
 Voice API Document contains the following elements:
 
--   interdigitTimeout (int, optional) – sets default interdigit timeout for all
+-   interdigitTimeout (int, optional) -- sets default interdigit timeout for all
     dialogs
 
--   merge (bool, optional) – indicates whether this document will be merged with
+-   merge (bool, optional) -- indicates whether this document will be merged with
     or overwrite previous document. When merging, dialogs and event handlers
     from previous document are preserved and new ones are merged into them (if
     same dialog or event exists in new document, it will overwrite existing).
     When overwriting, all dialogs and event handlers from previous document are
     removed and new ones added.
 
--   vars (array of *variable*, optional) – variables (can be set in documents
+-   vars (array of *variable*, optional) -- variables (can be set in documents
     and with commands). Always merged.
 
--   events (array of *event*, optional) – defines global document event handlers
+-   events (array of *event*, optional) -- defines global document event handlers
     that will process events that are not processed by active dialog.
 
--   dialogs (array of *dialog*, optional) – defines dialogs
+-   dialogs (array of *dialog*, optional) -- defines dialogs
 
--   commands (list of *command*, optional) – commands that will be executed when
+-   commands (list of *command*, optional) -- commands that will be executed when
     document loads
 
 Dialog elements:
 
--   name (string, required) – name of the dialog
+-   name (string, required) -- name of the dialog
 
--   repeatCount (int, optional, default 0) – number of times to the dialog can
+-   repeatCount (int, optional, default 0) -- number of times to the dialog can
     be repeated before generating "maxRepeat" event
 
--   timeout (int, optional) – time to wait for user input after prompts have
+-   timeout (int, optional) -- time to wait for user input after prompts have
     completed. When expires a "noInput" event is generated.
 
--   interdigitTimeout (int, optional) – timeout between DTMF digits that
+-   interdigitTimeout (int, optional) -- timeout between DTMF digits that
     completes input
 
--   inputs (array of *input*, optional) – defines user inputs that will be
+-   inputs (array of *input*, optional) -- defines user inputs that will be
     collected in the dialog.
 
--   promptSets (array of *promptSet*, optional) – defines prompt sets that will
+-   promptSets (array of *promptSet*, optional) -- defines prompt sets that will
     be played in the dialog. Dialogs can have several named prompt sets - a
     specific prompt set name can be specified when dialog is loaded.
 
--   events (array of *event*, optional) – defines event handlers that are active
+-   events (array of *event*, optional) -- defines event handlers that are active
     while dialog is active.
 
 PromptSet elements:
 
--   name (string, required) – prompt set name
+-   name (string, required) -- prompt set name
 
--   noBargeIn – prompts not interrupted by input. Elements:
+-   noBargeIn -- prompts not interrupted by input. Elements:
 
-    -   prompts (list of *prompt*) – list of prompts
+    -   prompts (list of *prompt*) -- list of prompts
 
--   bargeIn – prompts that will interrupted by input. Elements:
+-   bargeIn -- prompts that will interrupted by input. Elements:
 
-    -   prompts (list of *prompt*) – list of prompts
+    -   prompts (list of *prompt*) -- list of prompts
 
-    -   stopPromptsOnInput (bool, optional, default: true) – stop prompts when
+    -   stopPromptsOnInput (bool, optional, default: true) -- stop prompts when
         input is detected
 
 Prompt elements:
 
--   url – describes URL prompt. Elements:
+-   url -- describes URL prompt. Elements:
 
-    -   url (string, required) – prompt URL
+    -   url (string, required) -- prompt URL
 
-    -   maxAge (int, optional) – max age
+    -   maxAge (int, optional) -- max age
 
-    -   maxStale (int, optional) – max stale
+    -   maxStale (int, optional) -- max stale
 
--   input – describes prompt constructed from the collected input. Elements:
+-   input -- describes prompt constructed from the collected input. Elements:
 
-    -   playAs (enum: digits, content, silence, dtmf; required) – describes how
+    -   playAs (enum: digits, content, silence, dtmf; required) -- describes how
         to interpret input value
 
-    -   dialog (string, required) – name of dialog
+    -   dialog (string, required) -- name of dialog
 
-    -   input (string, required) – name of input
+    -   input (string, required) -- name of input
 
--   silence (int) – silence duration
+-   silence (int) -- silence duration
 
--   dtmf (string) – plays DTMF tones
+-   dtmf (string) -- plays DTMF tones
 
--   var – describes prompt constructed from the stored variable. Elements:
+-   var -- describes prompt constructed from the stored variable. Elements:
 
-    -   playAs (enum: digits, content, url, silence, dtmf; required) – describes
+    -   playAs (enum: digits, content, url, silence, dtmf; required) -- describes
         how to interpret variable value
 
-    -   var (string, required) – name of variable
+    -   var (string, required) -- name of variable
 
 Input elements:
 
--   DtmfOptions – defines DTMF options grammar – matches one of the pre-defined
+-   DtmfOptions -- defines DTMF options grammar -- matches one of the pre-defined
     digit strings. Elements:
 
-    -   tag (string, optional) – grammar tag
+    -   tag (string, optional) -- grammar tag
 
-    -   options (array or *option*)– list of options. Elements:
+    -   options (array or *option*)-- list of options. Elements:
 
-        -   digits (string, required) – digits to match
+        -   digits (string, required) -- digits to match
 
-        -   commands (list of *command*, optional) – commands that will execute
+        -   commands (list of *command*, optional) -- commands that will execute
             when matched
 
--   DtmfCollect – define DTMF collect grammar – collects digits of specified
+-   DtmfCollect -- define DTMF collect grammar -- collects digits of specified
     length and/or termination. Elements:
 
-    -   tag (string, optional) – grammar tag
+    -   tag (string, optional) -- grammar tag
 
-    -   minDigits (int, optional) – minimum input length
+    -   minDigits (int, optional) -- minimum input length
 
-    -   maxDigits (int, optional) – maximum input length
+    -   maxDigits (int, optional) -- maximum input length
 
-    -   allowedDigits (string, optional) – allowed digits
+    -   allowedDigits (string, optional) -- allowed digits
 
-    -   termDigits(string, optional) – terminating digits
+    -   termDigits(string, optional) -- terminating digits
 
-    -   includeTermDigit(bool, optional) – include terminating digit in
+    -   includeTermDigit(bool, optional) -- include terminating digit in
         collected input
 
-    -   commands (list of *command*, optional) – commands that will execute when
+    -   commands (list of *command*, optional) -- commands that will execute when
         matched.
 
--   VoiceRecord – record audio of specified duration. Elements:
+-   VoiceRecord -- record audio of specified duration. Elements:
 
-    -   tag (string, optional) – grammar tag
+    -   tag (string, optional) -- grammar tag
 
-    -   maxDuration (int, required) – specifies maximum duration of audio to
+    -   maxDuration (int, required) -- specifies maximum duration of audio to
         record
 
-    -   maxSilence (int, optional) – specifies maximum trailing silence (after
+    -   maxSilence (int, optional) -- specifies maximum trailing silence (after
         non-silence) that will terminate the recording
 
-    -   silenceThreshold (int, optional) – minimum signal level that is
+    -   silenceThreshold (int, optional) -- minimum signal level that is
         considered non-silence
 
-    -   termDigits (string, optional) – terminating digits
+    -   termDigits (string, optional) -- terminating digits
 
-    -   trimSilence (bool, optional) – trip silence in the recording
+    -   trimSilence (bool, optional) -- trip silence in the recording
 
-    -   toneClamp (bool, optional) – clamp DTMF tones in the audio recording
+    -   toneClamp (bool, optional) -- clamp DTMF tones in the audio recording
 
-    -   commands (list of *command*, optional) – commands that will execute when
+    -   commands (list of *command*, optional) -- commands that will execute when
         matched
 
 Command elements:
 
--   trace – write a trace to log. Elements:
+-   trace -- write a trace to log. Elements:
 
-    -   text (string, required) – trace text
+    -   text (string, required) -- trace text
 
-    -   level (int, optional) – trace level
+    -   level (int, optional) -- trace level
 
-    -   data (array of *dataField*, optional) – data fields to include in the
+    -   data (array of *dataField*, optional) -- data fields to include in the
         trace
 
--   alarm – write an alarm to log. Elements:
+-   alarm -- write an alarm to log. Elements:
 
-    -   text (string, required) – alarm text
+    -   text (string, required) -- alarm text
 
-    -   data (array of *dataField*, optional) – data fields to include in the
+    -   data (array of *dataField*, optional) -- data fields to include in the
         alarm
 
--   setAppID – set CDR appRefID to the specified value. Elements:
+-   setAppID -- set CDR appRefID to the specified value. Elements:
 
     -   id (string, required)
 
--   sendProvisional – send provisional response to incoming call. Elements:
+-   sendProvisional -- send provisional response to incoming call. Elements:
 
-    -   status (int, optional, default 180) – response status
+    -   status (int, optional, default 180) -- response status
 
-    -   reason (string, optional) – response reason
+    -   reason (string, optional) -- response reason
 
-    -   reasonHeader (string, optional) – response reason header
+    -   reasonHeader (string, optional) -- response reason header
 
--   goTo – activate a dialog. Elements:
+-   goTo -- activate a dialog. Elements:
 
-    -   dialog (string, required) – name of the dialog to activate
+    -   dialog (string, required) -- name of the dialog to activate
 
-    -   promptSet (string, optional) – name of promptSet to play
+    -   promptSet (string, optional) -- name of promptSet to play
 
-    -   inputTags (array of inputTag, optional)– list of tags for the inputs to
+    -   inputTags (array of inputTag, optional)-- list of tags for the inputs to
         activate. Elements:
 
-        -   tag (string, required) – tag name
+        -   tag (string, required) -- tag name
 
-    -   onLoadEvent (string, optional) – name of event to generate when dialog
+    -   onLoadEvent (string, optional) -- name of event to generate when dialog
         is loaded
 
--   send – send a request. Elements:
+-   send -- send a request. Elements:
 
-    -   eventName (string, required) – event name to generate when completes
+    -   eventName (string, required) -- event name to generate when completes
 
-    -   url (string, required) – url to send request to
+    -   url (string, required) -- url to send request to
 
-    -   type (string, optional) – content type
+    -   type (string, optional) -- content type
 
-    -   method (string, optional) – method
+    -   method (string, optional) -- method
 
-    -   body (string, optional) – literal body
+    -   body (string, optional) -- literal body
 
-    -   data (array of *dataField*, optional) – data fields to include in
+    -   data (array of *dataField*, optional) -- data fields to include in
         request (encoded according to type)
 
-    -   fetchTimeout (int, optional) – request timeout
+    -   fetchTimeout (int, optional) -- request timeout
 
--   submit – send a request and retrieve next document. Elements:
+-   submit -- send a request and retrieve next document. Elements:
 
-    -   url (string, required) – url to send request to
+    -   url (string, required) -- url to send request to
 
-    -   type (string, optional) – content type
+    -   type (string, optional) -- content type
 
-    -   method (string, optional) – method
+    -   method (string, optional) -- method
 
-    -   body (string, optional) – literal body
+    -   body (string, optional) -- literal body
 
-    -   data (array of *dataField*, optional) – data fields to include in
+    -   data (array of *dataField*, optional) -- data fields to include in
         request (encoded according to type)
 
-    -   fetchTimeout (int, optional) – request timeout
+    -   fetchTimeout (int, optional) -- request timeout
 
-    -   fetchAudioUrl – audio to play while request in progress
+    -   fetchAudioUrl -- audio to play while request in progress
 
-    -   fetchAudioDelay – delay before starting fetch audio
+    -   fetchAudioDelay -- delay before starting fetch audio
 
-    -   fetchAudioMinDuration – minimum duration of fetch audio to play
+    -   fetchAudioMinDuration -- minimum duration of fetch audio to play
 
--   exit – exit current dialog
+-   exit -- exit current dialog
 
--   stop – stop document execution
+-   stop -- stop document execution
 
--   hangup – disconnect call. Elements:
+-   hangup -- disconnect call. Elements:
 
-    -   status (int, optional) – disconnect status
+    -   status (int, optional) -- disconnect status
 
-    -   reason (string, optional) – disconnect reason
+    -   reason (string, optional) -- disconnect reason
 
-    -   reasonHeader (string, optional) – disconnect reason header
+    -   reasonHeader (string, optional) -- disconnect reason header
 
--   fastForward – fast forward currently playing audio. Elements:
+-   fastForward -- fast forward currently playing audio. Elements:
 
-    -   msec (int, optional, default 1000 msec) – duration to fast forward by
+    -   msec (int, optional, default 1000 msec) -- duration to fast forward by
 
--   rewind – rewind currently playing audio. Elements:
+-   rewind -- rewind currently playing audio. Elements:
 
-    -   msec (int, optional, default 1000 msec) – duration to rewind by
+    -   msec (int, optional, default 1000 msec) -- duration to rewind by
 
--   pause – pause currently playing audio. Elements:
+-   pause -- pause currently playing audio. Elements:
 
-    -   msec (int, optional) – duration to pause for
+    -   msec (int, optional) -- duration to pause for
 
--   pauseToggle – toggle pause
+-   pauseToggle -- toggle pause
 
--   resume – resume audio
+-   resume -- resume audio
 
--   clearInput – clear values collected by dialog inputs. Elements:
+-   clearInput -- clear values collected by dialog inputs. Elements:
 
-    -   dialog (string, optional) – dialog to clear (default current dialog)
+    -   dialog (string, optional) -- dialog to clear (default current dialog)
 
--   clearRepeat – clear repeat counter of a dialog. Elements:
+-   clearRepeat -- clear repeat counter of a dialog. Elements:
 
-    -   dialog (string, optional) – dialog to clear (default current dialog)
+    -   dialog (string, optional) -- dialog to clear (default current dialog)
 
--   sendDTMF – send DTMF digits on a call. Elements:
+-   sendDTMF -- send DTMF digits on a call. Elements:
 
-    -   digits (string, required) – digits to send
+    -   digits (string, required) -- digits to send
 
-    -   toneTime (int, optional, default 200 msec) – tone duration
+    -   toneTime (int, optional, default 200 msec) -- tone duration
 
-    -   breakTime (int, optional, default 100 msec) – break duration
+    -   breakTime (int, optional, default 100 msec) -- break duration
 
-    -   pauseTime (int, optional, default 100 msec) – pause duration
+    -   pauseTime (int, optional, default 100 msec) -- pause duration
 
--   throw – generate a named event. Elements:
+-   throw -- generate a named event. Elements:
 
-    -   name (string, required) – event name
+    -   name (string, required) -- event name
 
-    -   data (array of *dataField*, optional) – data fields to include in event
+    -   data (array of *dataField*, optional) -- data fields to include in event
 
--   joinAgora – join Agora channel. Elements:
+-   joinAgora -- join Agora channel. Elements:
 
-    -   channel (string, required) – Agora channel name
+    -   channel (string, required) -- Agora channel name
 
-    -   channelKey (string, optional) – Agora channel key
+    -   channelKey (string, optional) -- Agora channel key
 
-    -   app (string, required) – Agora app name
+    -   app (string, required) -- Agora app name
 
-    -   uid (int, optional) – Agora app uid
+    -   uid (int, optional) -- Agora app uid
 
-    -   broadcast (bool, optional) – Agora app broadcast
+    -   broadcast (bool, optional) -- Agora app broadcast
 
-    -   idleLimitSec (int, optional) – Agora app idle limit
+    -   idleLimitSec (int, optional) -- Agora app idle limit
 
-    -   playFromConf (int, optional, default 1) – play audio from the conference
+    -   playFromConf (int, optional, default 1) -- play audio from the conference
         to the call
 
-    -   playToConf (int, optional, default 1) – play audio from the call into
+    -   playToConf (int, optional, default 1) -- play audio from the call into
         the conference
 
-    -   inGain (int, optional) – incoming audio gain
+    -   inGain (int, optional) -- incoming audio gain
 
-    -   outGain (int, optional) – outgoing audio gain
+    -   outGain (int, optional) -- outgoing audio gain
 
--   leaveAgora – leave Agora channel.
+-   leaveAgora -- leave Agora channel.
 
--   playFromConf – play audio from the conference to the call. Elements:
+-   playFromConf -- play audio from the conference to the call. Elements:
 
-    -   value (int, optional) – value to set
+    -   value (int, optional) -- value to set
 
--   playToConf – play audio from the call into the conference. Elements:
+-   playToConf -- play audio from the call into the conference. Elements:
 
-    -   value (int, optional) – value to set
+    -   value (int, optional) -- value to set
 
--   startTimer – start timer. Elements:
+-   startTimer -- start timer. Elements:
 
-    -   name (string, required) – timer name (event with this name will be
+    -   name (string, required) -- timer name (event with this name will be
         generated when timer expires)
 
-    -   duration (int, required) – timer duration
+    -   duration (int, required) -- timer duration
 
--   stopTimer – stop timer. Elements:
+-   stopTimer -- stop timer. Elements:
 
-    -   name (string, required) – timer name
+    -   name (string, required) -- timer name
 
--   startHTTPListen – start HTTP listener in the session. Elements
+-   startHTTPListen -- start HTTP listener in the session. Elements
 
-    -   path (string, required) – http path
+    -   path (string, required) -- http path
 
--   stopHTTPListen – stop HTTP listener in the session. Elements
+-   stopHTTPListen -- stop HTTP listener in the session. Elements
 
-    -   path (string, required) – http path
+    -   path (string, required) -- http path
 
--   storeVar – store variables
+-   storeVar -- store variables
 
-    -   data (array of *dataField*, optional) – data fields to store
+    -   data (array of *dataField*, optional) -- data fields to store
 
--   authorize – authorize incoming call. Elements:
+-   authorize -- authorize incoming call. Elements:
 
-    -   user (string, required) – authorization user
+    -   user (string, required) -- authorization user
 
-    -   password (string, required) – authorization password
+    -   password (string, required) -- authorization password
 
-    -   realm (string, required) – authorization realm
+    -   realm (string, required) -- authorization realm
 
--   restartInput – restart current input. Only available in commands executed on
+-   restartInput -- restart current input. Only available in commands executed on
     input match.
 
--   stopPrompts – stop current prompts
+-   stopPrompts -- stop current prompts
 
--   respond – sends a response. Only available in commands executed from the
+-   respond -- sends a response. Only available in commands executed from the
     event injected by an API request. Elements:
 
-    -   status (int, optional) – response status
+    -   status (int, optional) -- response status
 
-    -   type (string, optional) – response content type
+    -   type (string, optional) -- response content type
 
-    -   body (string, optional) – literal response body
+    -   body (string, optional) -- literal response body
 
-    -   data (array of *dataField*, optional) – data fields to include in
+    -   data (array of *dataField*, optional) -- data fields to include in
         response (encoded according to type)
 
 DataField elements:
 
--   name (string, required) – defines field name
+-   name (string, required) -- defines field name
 
--   value (required) – source of the field value. Value can be:
+-   value (required) -- source of the field value. Value can be:
 
     -   Input collected in a dialog. Elements:
 
-        -   dialog (string, optional) – dialog name
+        -   dialog (string, optional) -- dialog name
 
-        -   input (string, required) – name of input. The following input names
+        -   input (string, required) -- name of input. The following input names
             are available:
 
-            -   lastVoiceRecordData – audio recording produced by last
+            -   lastVoiceRecordData -- audio recording produced by last
                 voiceRecord input
 
-            -   lastVoiceRecordDuration – duration of audio recording produced
+            -   lastVoiceRecordDuration -- duration of audio recording produced
                 by last voiceRecord input
 
-            -   lastVoiceRecordFormat – format of audio recording produced by
+            -   lastVoiceRecordFormat -- format of audio recording produced by
                 last voiceRecord input
 
-            -   lastDtmfDigits – digits detected by last dtmfOptions or
+            -   lastDtmfDigits -- digits detected by last dtmfOptions or
                 dtmfCollect input
 
-            -   lastDtmfTermDigit– termination digit detected by last
+            -   lastDtmfTermDigit-- termination digit detected by last
                 dtmfOptions or dtmfCollect input
 
-            -   lastMatchReason– match reason produced by last matched input
+            -   lastMatchReason-- match reason produced by last matched input
 
-            -   repeatCount – repeat counter of the dialog
+            -   repeatCount -- repeat counter of the dialog
 
     -   Field from the event. Elements:
 
-        -   event (string, required) – name of the event field
+        -   event (string, required) -- name of the event field
 
     -   Stored variable. Elements:
 
-        -   var (string, required) – variable name
+        -   var (string, required) -- variable name
 
     -   Call information field. Elements:
 
-        -   callInfo (string, required) – name of the call info field
+        -   callInfo (string, required) -- name of the call info field
 
     -   Call header field. Elements:
 
-        -   callHeader (string, required) – name of the call header
+        -   callHeader (string, required) -- name of the call header
 
     -   Literal value. Elements:
 
-        -   literal (string, required) – literal value
+        -   literal (string, required) -- literal value
 
-Fixed Events – events with predefined names generated in Voice API documents:
+Fixed Events -- events with predefined names generated in Voice API documents:
 
--   disconnected – generated when call disconnects. Event contains fields:
+-   disconnected -- generated when call disconnects. Event contains fields:
 
-    -   status – disconnect status
+    -   status -- disconnect status
 
-    -   reason – disconnect reason
+    -   reason -- disconnect reason
 
-    -   reasonHeader – disconnect reason header
+    -   reasonHeader -- disconnect reason header
 
     -   accessMethod
 
-    -   direction – 0 for inbound, 1 for outbound
+    -   direction -- 0 for inbound, 1 for outbound
 
-    -   requestUri – request URI
+    -   requestUri -- request URI
 
-    -   fromNumber – from number
+    -   fromNumber -- from number
 
-    -   fromName – from name
+    -   fromName -- from name
 
-    -   toNumber – to number
+    -   toNumber -- to number
 
-    -   callID – SIP call ID
+    -   callID -- SIP call ID
 
-    -   connectedStart – timestamp when call was answered
+    -   connectedStart -- timestamp when call was answered
 
-    -   connectedStop – timestamp when call was disconnected
+    -   connectedStop -- timestamp when call was disconnected
 
-    -   offHookStart – timestamp when call went offhook
+    -   offHookStart -- timestamp when call went offhook
 
-    -   offHookStop – timestamp when call went on hook
+    -   offHookStop -- timestamp when call went on hook
 
-    -   codec – codec used in the call
+    -   codec -- codec used in the call
 
-    -   jitterAverage – average RTP jitter
+    -   jitterAverage -- average RTP jitter
 
-    -   jitterMaximum – max RTP jitter
+    -   jitterMaximum -- max RTP jitter
 
-    -   droppedPackets – number of RTP packets dropped
+    -   droppedPackets -- number of RTP packets dropped
 
-    -   latePackets – number of RTP packets late
+    -   latePackets -- number of RTP packets late
 
-    -   receivedPackets – number of packets received
+    -   receivedPackets -- number of packets received
 
-    -   sentPackets – number of packets sent
+    -   sentPackets -- number of packets sent
 
-    -   remoteIP – remote RTP address
+    -   remoteIP -- remote RTP address
 
-    -   remotePort – remote RTP port
+    -   remotePort -- remote RTP port
 
-    -   localIP – local RTP address
+    -   localIP -- local RTP address
 
-    -   localPort – local RTP port
+    -   localPort -- local RTP port
 
--   callConnected – generate when call is answered
+-   callConnected -- generate when call is answered
 
--   badAudio – generated when audio fetch failed
+-   badAudio -- generated when audio fetch failed
 
--   error – generate when a document error occurs. Event contains fields:
+-   error -- generate when a document error occurs. Event contains fields:
 
-    -   error – error description
+    -   error -- error description
 
--   promptsDone – generated when prompts completed playing
+-   promptsDone -- generated when prompts completed playing
 
 -   onLoad - generated when dialog loads (unless an alternative event name is
     provided in goTo command)
 
--   noInput – generated when no input was received for a specified duration
+-   noInput -- generated when no input was received for a specified duration
     after prompts complete
 
--   noMatch – generated when last active input failed to match. Event contains
+-   noMatch -- generated when last active input failed to match. Event contains
     fields:
 
-    -   digits – digits currently received
+    -   digits -- digits currently received
 
-    -   reason – reason string
+    -   reason -- reason string
 
--   maxRepeat – generated when repeatCount was exceeded in a dialog. Event
+-   maxRepeat -- generated when repeatCount was exceeded in a dialog. Event
     contains fields:
 
-    -   repeatCount – current value of repeat count
+    -   repeatCount -- current value of repeat count
 
--   httpListenStarted – generated when startHTTPListen command succeeded. Event
+-   httpListenStarted -- generated when startHTTPListen command succeeded. Event
     contains fields:
 
-    -   url – full URL for HTTP listener
+    -   url -- full URL for HTTP listener
 
-    -   path – path for HTTP listener
+    -   path -- path for HTTP listener
 
--   authorizeSuccess – generated when authorize command succeeded
+-   authorizeSuccess -- generated when authorize command succeeded
 
--   authorizeFailed – generated when authorize command succeeded. Event contains
+-   authorizeFailed -- generated when authorize command succeeded. Event contains
     fields:
 
-    -   status – stale, failed
+    -   status -- stale, failed
 
--   sendFailed – generated when send command failed. Event contains fields:
+-   sendFailed -- generated when send command failed. Event contains fields:
 
-    -   name – event name used in send command
+    -   name -- event name used in send command
 
-    -   url – url used in send command
+    -   url -- url used in send command
 
-Custom Events – events with custom names that are generated by Voice API
+Custom Events -- events with custom names that are generated by Voice API
 commands:
 
 -   when send command succeeds an event with name specified in command is
@@ -653,7 +653,7 @@ When all prompts complete (or there were no prompts) "promptsDone" event is
 generated.
 
 If any user input is detected prompts are terminated unless "stopPromptsOnInput"
-is set to false – in which case prompts continue until "stopPrompts" command is
+is set to false -- in which case prompts continue until "stopPrompts" command is
 executed. Using "stopPromptsOnInput" set to false in combination with
 "stopPrompts" and "restartInput" commands allows to implement actions without
 interrupting the flow of prompts. For example, to allow user to fast forward,
@@ -682,23 +682,23 @@ fields.
 The following event fields are available when dtmfOptions or dtmfCollect input
 matched:
 
--   digits – string that matched
+-   digits -- string that matched
 
--   termDigit – terminating digit
+-   termDigit -- terminating digit
 
--   reason – option, maxDigits, termDigit, interdigitTimeout
+-   reason -- option, maxDigits, termDigit, interdigitTimeout
 
 The following event fields are available when voiceRecord input matched:
 
--   reason – complete, termDigit
+-   reason -- complete, termDigit
 
--   termDigit – terminating digit
+-   termDigit -- terminating digit
 
 -   voiceRecordData - recording
 
--   voiceRecordDuration – recording duration
+-   voiceRecordDuration -- recording duration
 
--   voiceRecordFormat – redording format
+-   voiceRecordFormat -- redording format
 
 ### No Input timeout
 
@@ -711,7 +711,7 @@ noInput timer is stopped. If noInput timer fires before any input is detected, a
 
 If interdigitTimeout was specified on the document or dialog, then a interdigit
 timer will be restarted after every digit is detected. If interdigit timeout
-occurs, then running dtmfCollect inputs are evaluated for potential match – if
+occurs, then running dtmfCollect inputs are evaluated for potential match -- if
 match occurred then input's commands are executed, otherwise if there are no
 more running inputs a noMatch event is generated.
 
